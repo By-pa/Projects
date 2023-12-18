@@ -44,9 +44,7 @@
 
 					Console.WriteLine(questions[i]);
 
-					int userAnswer = Convert.ToInt32(Console.ReadLine());
-
-
+					int userAnswer = GetUserAnswer();
 
 					if (userAnswer == Answers[i])
 					{
@@ -55,7 +53,7 @@
 
 				}
 
-				Console.WriteLine("Количество пра5вильных ответов: " + countRightAnswers);
+				Console.WriteLine("Количество правильных ответов: " + countRightAnswers);
 
 				string[] diagnoses = GetDiagnoses();
 
@@ -70,6 +68,28 @@
 				
 			}
         }
+
+		private static int GetUserAnswer()
+		{
+			while (true)
+			{
+				try
+				{
+					return Convert.ToInt32(Console.ReadLine());
+				}
+				catch(FormatException)
+				{
+                    Console.WriteLine("Введите число!");
+                } 
+				catch(OverflowException)
+				{
+                    Console.WriteLine("Вы ввели слишком большое число!");
+                }
+				
+				
+
+			}
+		}
 
 		static bool GetUserChoise(string message)
 		{
