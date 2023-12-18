@@ -57,10 +57,9 @@
 
 				Console.WriteLine("Количество пра5вильных ответов: " + countRightAnswers);
 
-				string[] diagnoses = GetDiagnoses();
+				string diagnose = CalculateDiagnose(countQuestions, countRightAnswers);
 
-
-				Console.WriteLine(userName + ", Ваш диагноз: " + diagnoses[countRightAnswers]);
+				Console.WriteLine(userName + ", Ваш диагноз: " + diagnose);
 
 				bool userChoise = GetUserChoise("Хотите начать сначала?");
 				if (userChoise == false)
@@ -70,6 +69,15 @@
 				
 			}
         }
+
+		static string CalculateDiagnose(int countQuestions, int countRightAnswers)
+		{
+			string[] diagnoses = GetDiagnoses();
+			int percentRightAnswers = countRightAnswers * 100 / countQuestions;
+
+			return diagnoses[percentRightAnswers / 20];
+
+		}
 
 		static bool GetUserChoise(string message)
 		{
@@ -102,18 +110,7 @@
 			return questions;
 		}
 
-		static void Shuffle(string[] questions)
-		{
-			Random rand = new Random();
-
-			for (int i = questions.Length - 1; i >= 1; i--)
-			{
-				int j = rand.Next(i + 1);
-				string tmp = questions[j];
-				questions[j] = questions[i];
-
-			}
-		}	
+	
 		static string[] GetDiagnoses()
 		{
 			string[] diagnoses = new string[6];
