@@ -1,6 +1,4 @@
-﻿using System.Text;
-
-namespace GeniyIdiotConsoleApp
+﻿namespace GeniyIdiotConsoleApp
 {
 	class Program
 	{
@@ -26,7 +24,7 @@ namespace GeniyIdiotConsoleApp
 					var randomQuestionIndex = random.Next(0, questions.Count);
 					Console.WriteLine(questions[randomQuestionIndex].Text);
 
-					var userAnswer = GetUserAnswer();
+					var userAnswer = GetNumber();
 					var rightAnswer = questions[randomQuestionIndex].Answer;
 
 					if (userAnswer == rightAnswer)
@@ -50,6 +48,18 @@ namespace GeniyIdiotConsoleApp
 					ShowUserResults();
 				}
 
+				userChoise = GetUserChoise("Хотите добавить новый вопрос?");
+				if (userChoise)
+				{
+					AddNewQuestion();
+				}
+
+				userChoise = GetUserChoise("Хотите удалить существующий вопрос?");
+				if (userChoise)
+				{
+					RemoveQuestion();
+				}
+
 				userChoise = GetUserChoise("Хотите начать сначала?");
 				if (userChoise == false)
 				{
@@ -58,6 +68,41 @@ namespace GeniyIdiotConsoleApp
 
 			}
 		}
+
+		static void RemoveQuestion()
+		{
+            Console.WriteLine("Введите номер удаляемого вопроса");
+            var questions = QuestionsStorage.GetAll();
+
+			for (int i = 0; i < questions.Count; i++)
+			{
+                Console.WriteLine((i+1) + ". " + questions[i].Text);
+            }
+
+			var removeQuestionNumber = GetNumber();
+
+			while(removeQuestionNumber < 1 || removeQuestionNumber > questions.Count)
+			{
+                Console.WriteLine("Введите число от 1 до " + questions.Count);
+				removeQuestionNumber = GetNumber();
+			}
+
+			var removeQuestion = questions[removeQuestionNumber - 1];
+			QuestionsStorage.Remove(removeQuestion);
+		}
+
+		static void AddNewQuestion()
+		{
+            Console.WriteLine("Введите текст вопроса");
+			var text = Console.ReadLine();
+            Console.WriteLine("Введите ответ на вопрос");
+
+			var answer = GetNumber();
+
+			var newQuestion = new Question(text, answer);
+
+			QuestionsStorage.Add(newQuestion);
+        }
 
 		private static void ShowUserResults()
 		{
@@ -81,7 +126,7 @@ namespace GeniyIdiotConsoleApp
 			return diagnoses[percentRightAnswers / 20];
 		}
 
-		static int GetUserAnswer()
+		static int GetNumber()
 		{
 			while (true)
 			{
