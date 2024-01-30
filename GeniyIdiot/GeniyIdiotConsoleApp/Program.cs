@@ -1,6 +1,8 @@
-﻿namespace GeniyIdiotConsoleApp
+﻿using GeniyIdiot.Common;
+
+namespace GeniyIdiotConsoleApp
 {
-	class Program
+	class Program : CalculateDiagnose
 	{
 		static void Main(string[] args)
 		{
@@ -36,7 +38,7 @@
 
 				Console.WriteLine("Количество правильных ответов: " + user.CountRightAnswers);
 
-				var diagnose = CalculateDiagnose(countQuestions, user.CountRightAnswers);
+				var diagnose = CalculateDiagnose.DiagnoseCalculate(countQuestions, user.CountRightAnswers);
 				user.Diagnose = diagnose;
 				Console.WriteLine(userName + ", Ваш диагноз: " + diagnose);
 
@@ -116,16 +118,6 @@
             }
 		}
 
-
-
-		static string CalculateDiagnose(int countQuestions, int countRightAnswers)
-		{ 
-			var diagnoses = GetDiagnoses();
-			var percentRightAnswers = countRightAnswers * 100 / countQuestions;
-
-			return diagnoses[percentRightAnswers / 20];
-		}
-
 		static int GetNumber()
 		{
 			while (true)
@@ -167,22 +159,6 @@
 				}
 			}
 		}
-
-
-
-		static List<string> GetDiagnoses()
-		{
-			var diagnoses = new List<string>();
-			diagnoses.Add("Идиот");
-			diagnoses.Add("Кретин");
-			diagnoses.Add("Дурак");
-			diagnoses.Add("Нормальный");
-			diagnoses.Add("Талант");
-			diagnoses.Add("Гений");
-
-			return diagnoses;
-		}
-
 	}
 
 }
