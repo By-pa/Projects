@@ -1,6 +1,6 @@
 ﻿using System.Text;
 
-namespace GeniyIdiotConsoleApp
+namespace GeniyIdiot.Common
 {
 	public class UserResultsStorage
 	{
