@@ -1,9 +1,9 @@
 ﻿namespace GeniyIdiot.Common
 {
-	public class CalculateDiagnose
+	public class DiagnoseCalculator
 	{
 
-		public static string DiagnoseCalculate(int countQuestions, int countRightAnswers)
+		public static string Calculate(int countQuestions, int countRightAnswers)
 		{
 			var diagnoses = GetDiagnoses();
 			var percentRightAnswers = countRightAnswers * 100 / countQuestions;

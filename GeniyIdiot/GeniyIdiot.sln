@@ -7,7 +7,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "GeniyIdiotConsoleApp", "Gen
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "GIWinFormsApp", "GIWinFormsApp\GIWinFormsApp.csproj", "{6AF6EFFC-3F93-4290-994C-09C926F4CE65}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GeniyIdiot.Common", "GeniyIdiot\GeniyIdiot.Common.csproj", "{36BAAF50-983F-4262-A02C-48245374B033}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "GeniyIdiot.Common", "GeniyIdiot\GeniyIdiot.Common.csproj", "{36BAAF50-983F-4262-A02C-48245374B033}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
