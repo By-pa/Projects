@@ -2,47 +2,30 @@
 
 namespace GeniyIdiotConsoleApp
 {
-	class Program : CalculateDiagnose
+	class Program
 	{
 		static void Main(string[] args)
 		{
 			while (true)
 			{
 				Console.WriteLine("Здравствуйте! Как Тебя зовут?)");
-				var userName = Console.ReadLine();
-
-				var user = new User(userName);
-
-				var questions = QuestionsStorage.GetAll();
-				var countQuestions = questions.Count;
+				var user = new User(Console.ReadLine());
+				var game = new Game(user);
 
 
-				Random random = new Random();
-
-
-				for (int i = 0; i < countQuestions; i++)
+				while (!game.End())
 				{
-					Console.WriteLine($"Вопрос номер: {i + 1}");
-					var randomQuestionIndex = random.Next(0, questions.Count);
-					Console.WriteLine(questions[randomQuestionIndex].Text);
+					var currentQuestion = game.GetNextQuestion();
+					Console.WriteLine(game.GetQuestionNumberText);
+					Console.WriteLine(currentQuestion.Text);
 
 					var userAnswer = GetNumber();
-					var rightAnswer = questions[randomQuestionIndex].Answer;
 
-					if (userAnswer == rightAnswer)
-					{
-						user.AcceptRightAnswer();
-					}
-					questions.RemoveAt(randomQuestionIndex);
+					game.AcceptAnswer(userAnswer);
 				}
 
-				Console.WriteLine("Количество правильных ответов: " + user.CountRightAnswers);
-
-				var diagnose = CalculateDiagnose.DiagnoseCalculate(countQuestions, user.CountRightAnswers);
-				user.Diagnose = diagnose;
-				Console.WriteLine(userName + ", Ваш диагноз: " + diagnose);
-
-				UserResultsStorage.Save(user);
+				var message = game.CalculateDiagnose();
+				Console.WriteLine(message);
 
 				var userChoise = GetUserChoise("Хотите посмотреть предыдущие результаты игры");
 				if (userChoise)
@@ -73,19 +56,19 @@ namespace GeniyIdiotConsoleApp
 
 		static void RemoveQuestion()
 		{
-            Console.WriteLine("Введите номер удаляемого вопроса");
-            var questions = QuestionsStorage.GetAll();
+			Console.WriteLine("Введите номер удаляемого вопроса");
+			var questions = QuestionsStorage.GetAll();
 
 			for (int i = 0; i < questions.Count; i++)
 			{
-                Console.WriteLine((i+1) + ". " + questions[i].Text);
-            }
+				Console.WriteLine((i + 1) + ". " + questions[i].Text);
+			}
 
 			var removeQuestionNumber = GetNumber();
 
-			while(removeQuestionNumber < 1 || removeQuestionNumber > questions.Count)
+			while (removeQuestionNumber < 1 || removeQuestionNumber > questions.Count)
 			{
-                Console.WriteLine("Введите число от 1 до " + questions.Count);
+				Console.WriteLine("Введите число от 1 до " + questions.Count);
 				removeQuestionNumber = GetNumber();
 			}
 
@@ -95,49 +78,37 @@ namespace GeniyIdiotConsoleApp
 
 		static void AddNewQuestion()
 		{
-            Console.WriteLine("Введите текст вопроса");
+			Console.WriteLine("Введите текст вопроса");
 			var text = Console.ReadLine();
-            Console.WriteLine("Введите ответ на вопрос");
+			Console.WriteLine("Введите ответ на вопрос");
 
 			var answer = GetNumber();
 
 			var newQuestion = new Question(text, answer);
 
 			QuestionsStorage.Add(newQuestion);
-        }
+		}
 
 		private static void ShowUserResults()
 		{
 			var result = UserResultsStorage.GetUserResults();
 
 			Console.WriteLine("{0,-20} {1,18} {2,15}", "Имя", "Кол-во правильных ответов", "Диагноз");
-			
+
 			foreach (var user in result)
 			{
-                Console.WriteLine("{0,-20}{1,10}{2,35}", user.Name, user.CountRightAnswers, user.Diagnose);
-            }
+				Console.WriteLine("{0,-20}{1,10}{2,35}", user.Name, user.CountRightAnswers, user.Diagnose);
+			}
 		}
 
 		static int GetNumber()
 		{
-			while (true)
+			int number;
+			while (!InputValidator.TryParseToNumber(Console.ReadLine(), out number, out string errorMessage))
 			{
-				try
-				{
-					return Convert.ToInt32(Console.ReadLine());
-				}
-				catch (FormatException)
-				{
-					Console.WriteLine("Введите число!");
-				}
-				catch (OverflowException)
-				{
-					Console.WriteLine("Вы ввели слишком большое число!");
-				}
-
-
-
+				Console.WriteLine(errorMessage);
 			}
+			return number;
 		}
 
 		static bool GetUserChoise(string message)
