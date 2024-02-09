@@ -33,6 +33,12 @@ namespace GeniyIdiotConsoleApp
 					ShowUserResults();
 				}
 
+				userChoise = GetUserChoise("Хотите начать сначала?");
+				if (userChoise == false)
+				{
+					break;
+				}
+
 				userChoise = GetUserChoise("Хотите добавить новый вопрос?");
 				if (userChoise)
 				{
@@ -45,11 +51,7 @@ namespace GeniyIdiotConsoleApp
 					RemoveQuestion();
 				}
 
-				userChoise = GetUserChoise("Хотите начать сначала?");
-				if (userChoise == false)
-				{
-					break;
-				}
+				
 
 			}
 		}
