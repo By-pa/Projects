@@ -75,7 +75,7 @@ namespace GeniyIdiotConsoleApp
 			}
 
 			var removeQuestion = questions[removeQuestionNumber - 1];
-			QuestionsStorage.Remove(removeQuestion);
+			QuestionsStorage.Remove(removeQuestion.Text);
 		}
 
 		static void AddNewQuestion()

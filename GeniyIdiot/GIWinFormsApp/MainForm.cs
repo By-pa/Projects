@@ -25,7 +25,7 @@ namespace GIWinFormsApp
 
 		private void ShowNextQuestion()
 		{
-			var currentQuestion  = game.GetNextQuestion();
+			var currentQuestion = game.GetNextQuestion();
 			questionTextLabel.Text = currentQuestion.Text;
 			questionNumberLabel.Text = game.GetQuestionNumberText();
 		}
@@ -77,7 +77,25 @@ namespace GIWinFormsApp
 		private void показатьѕредыдущие–езультатыToolStripMenuItem_Click(object sender, EventArgs e)
 		{
 			var resultsForm = new ResultsForm();
-			resultsForm.ShowDialog();	
+			resultsForm.ShowDialog();
+		}
+
+		private void списко¬опросовToolStripMenuItem_Click(object sender, EventArgs e)
+		{
+			var questionForm = new QuestionForm();
+			questionForm.ShowDialog();
+		}
+
+		private void добавитьЌовый¬опросToolStripMenuItem_Click(object sender, EventArgs e)
+		{
+			var newQuestionForm = new AddNewQuestionForm();
+			newQuestionForm.ShowDialog();
+		}
+
+		private void список¬сех¬опросовToolStripMenuItem_Click(object sender, EventArgs e)
+		{
+			var questionsListForm = new QuestionsListForm();
+			questionsListForm.ShowDialog();
 		}
 	}
 }

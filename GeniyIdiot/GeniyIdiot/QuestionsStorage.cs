@@ -1,28 +1,18 @@
-﻿namespace GeniyIdiot.Common
+﻿using Newtonsoft.Json;
+
+namespace GeniyIdiot.Common
 {
 	public class QuestionsStorage
 	{
+		public static string Path = "questions.json";
 		public static List<Question> GetAll()
 		{
 			var questions = new List<Question>();
 
-			if (FileProvider.Exists("questions.txt"))
+			if (FileProvider.Exists(Path))
 			{
-				var value = FileProvider.GetValue("questions.txt");
-				var lines = value.Split(new char[] { '\n' }, StringSplitOptions.RemoveEmptyEntries);
-
-				foreach (var line in lines)
-				{
-					var values = line.Split("#");
-					var text = values[0];
-					var answer = Convert.ToInt32(values[1]);
-
-
-					var question = new Question(text, answer);
-
-
-					questions.Add(question);
-				}
+				var value = FileProvider.GetValue(Path);
+				questions = JsonConvert.DeserializeObject<List<Question>>(value);
 			}
 			else
 			{
@@ -40,33 +30,28 @@
 
 		private static void SaveQuestions(List<Question> questions)
 		{
-			foreach (var question in questions)
-			{
-				Add(question);
-			}
+			var jsonData = JsonConvert.SerializeObject(questions);
+			FileProvider.Replace(Path, jsonData);
 		}
 
 		public static void Add(Question newQuestion)
 		{
-			var value = $"{newQuestion.Text}#{newQuestion.Answer}";
-			FileProvider.Append("questions.txt", value);
-
-
+			var questoins = GetAll();
+			questoins.Add(newQuestion);
+			SaveQuestions(questoins);
 		}
 
-		public static void Remove(Question removeQuestion)
+		public static void Remove(string text)
 		{
 			var questions = GetAll();
 
 			for (int i = 0; i < questions.Count; i++)
 			{
-				if (questions[i].Text == removeQuestion.Text)
+				if (questions[i].Text == text)
 				{
 					questions.RemoveAt(i);
 				}
 			}
-
-			FileProvider.Clear("questions.txt");
 			SaveQuestions(questions);
 		}
 	}

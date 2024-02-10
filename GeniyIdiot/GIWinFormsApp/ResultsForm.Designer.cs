@@ -45,6 +45,7 @@
 			resultsDataGridView.RowTemplate.Height = 29;
 			resultsDataGridView.Size = new Size(547, 299);
 			resultsDataGridView.TabIndex = 0;
+			resultsDataGridView.CellContentClick += resultsDataGridView_CellContentClick;
 			// 
 			// UserNameColumn
 			// 

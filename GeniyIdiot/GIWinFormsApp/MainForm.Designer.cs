@@ -37,6 +37,9 @@
 			показатьПредыдущиеРезультатыToolStripMenuItem = new ToolStripMenuItem();
 			рестартToolStripMenuItem = new ToolStripMenuItem();
 			выходToolStripMenuItem = new ToolStripMenuItem();
+			вопросыToolStripMenuItem = new ToolStripMenuItem();
+			списокВсехВопросовToolStripMenuItem = new ToolStripMenuItem();
+			добавитьНовыйВопросToolStripMenuItem = new ToolStripMenuItem();
 			menuStrip1.SuspendLayout();
 			SuspendLayout();
 			// 
@@ -79,7 +82,7 @@
 			// menuStrip1
 			// 
 			menuStrip1.ImageScalingSize = new Size(20, 20);
-			menuStrip1.Items.AddRange(new ToolStripItem[] { файоToolStripMenuItem });
+			menuStrip1.Items.AddRange(new ToolStripItem[] { файоToolStripMenuItem, вопросыToolStripMenuItem });
 			menuStrip1.Location = new Point(0, 0);
 			menuStrip1.Name = "menuStrip1";
 			menuStrip1.Size = new Size(553, 28);
@@ -115,6 +118,27 @@
 			выходToolStripMenuItem.Text = "Выход";
 			выходToolStripMenuItem.Click += выходToolStripMenuItem_Click;
 			// 
+			// вопросыToolStripMenuItem
+			// 
+			вопросыToolStripMenuItem.DropDownItems.AddRange(new ToolStripItem[] { списокВсехВопросовToolStripMenuItem, добавитьНовыйВопросToolStripMenuItem });
+			вопросыToolStripMenuItem.Name = "вопросыToolStripMenuItem";
+			вопросыToolStripMenuItem.Size = new Size(86, 24);
+			вопросыToolStripMenuItem.Text = "Вопросы";
+			// 
+			// списокВсехВопросовToolStripMenuItem
+			// 
+			списокВсехВопросовToolStripMenuItem.Name = "списокВсехВопросовToolStripMenuItem";
+			списокВсехВопросовToolStripMenuItem.Size = new Size(264, 26);
+			списокВсехВопросовToolStripMenuItem.Text = "Список всех вопросов";
+			списокВсехВопросовToolStripMenuItem.Click += списокВсехВопросовToolStripMenuItem_Click;
+			// 
+			// добавитьНовыйВопросToolStripMenuItem
+			// 
+			добавитьНовыйВопросToolStripMenuItem.Name = "добавитьНовыйВопросToolStripMenuItem";
+			добавитьНовыйВопросToolStripMenuItem.Size = new Size(264, 26);
+			добавитьНовыйВопросToolStripMenuItem.Text = "Добавить новый вопрос";
+			добавитьНовыйВопросToolStripMenuItem.Click += добавитьНовыйВопросToolStripMenuItem_Click;
+			// 
 			// mainForm
 			// 
 			AutoScaleDimensions = new SizeF(8F, 20F);
@@ -146,5 +170,9 @@
 		private ToolStripMenuItem показатьПредыдущиеРезультатыToolStripMenuItem;
 		private ToolStripMenuItem рестартToolStripMenuItem;
 		private ToolStripMenuItem выходToolStripMenuItem;
+		private ToolStripMenuItem списокВопросовToolStripMenuItem;
+		private ToolStripMenuItem вопросыToolStripMenuItem;
+		private ToolStripMenuItem добавитьНовыйВопросToolStripMenuItem;
+		private ToolStripMenuItem списокВсехВопросовToolStripMenuItem;
 	}
 }
